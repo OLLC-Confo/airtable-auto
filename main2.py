@@ -6,7 +6,7 @@ import os
 TABLE_NAME = 'Table 1'
 FOLDER_NAME = TABLE_NAME + ' Submissions'
 BASE_KEY = 'appsExXNgItazXQbG'
-MY_KEY = 'key1tY4mE9VGNB5uu'
+MY_KEY = ''
 
 airtable = Airtable(
     BASE_KEY, TABLE_NAME, MY_KEY
