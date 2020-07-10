@@ -12,7 +12,7 @@ def get_airtable_records(base_key, table_name):
     airtable = Airtable(
         base_key, table_name, USER_KEY
     )
-    return airtable.get_all(sort = 'Division', maxRecords = 5)
+    return airtable.get_all(sort = 'Division')
 
 
 def create_empty_folders(divisions):

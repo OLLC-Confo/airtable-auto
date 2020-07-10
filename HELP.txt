@@ -1,0 +1,6 @@
+1. INSTALL NECESSARY MODULES
+    python -m pip install -r requirements.txt
+
+2. In the 'data.py' file, edit required details
+
+3. python main.py
