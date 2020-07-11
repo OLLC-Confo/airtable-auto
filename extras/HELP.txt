@@ -2,8 +2,10 @@
 
 2. INSTALL NECESSARY MODULES
     python -m pip install -r requirements.txt
-
-3. Put correct details in the gui window.
-
-4. Run the following command in terminal
+    
+3. Run the following command in the terminal/cmd
     python gui.py
+
+4. Put correct details in the gui window.
+
+
