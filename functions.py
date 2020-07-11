@@ -1,12 +1,7 @@
-from data import TABLE_NAME, PATH
 from airtable import Airtable
 from docx2pdf import convert
 from docx import Document
 import os
-# import tkinter as tk
-
-
-FOLDER_NAME = TABLE_NAME + ' Submissions'
 
 
 def get_airtable_records(base_key, table_name, api_key):
@@ -15,18 +10,17 @@ def get_airtable_records(base_key, table_name, api_key):
     )
     return airtable.get_all(sort = 'Division')
 
-
 def create_empty_folders(divisions, path):
-    # print(path + "wtwf")
     os.chdir(path)
     print('PATH changed')
+    
+    FOLDER_NAME = path + '/Submissions'
     if not FOLDER_NAME in os.listdir():
         os.mkdir(FOLDER_NAME)
         print('Created base folder.')
     else:
         print('Base folder exists.')
     os.chdir(FOLDER_NAME)
-    
     delete_count = 0
     for division in divisions:
         if division not in os.listdir():
@@ -36,7 +30,6 @@ def create_empty_folders(divisions, path):
                 os.remove(division + '/' + file)
                 delete_count += 1
     print('Deleted previous files:', delete_count, '\n')
-
 
 def create_pdf(test):
     try:

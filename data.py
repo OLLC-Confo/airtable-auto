@@ -1,5 +1,0 @@
-CLASS = ''
-TABLE_NAME = ''
-BASE_KEY = ''
-USER_KEY = ''
-PATH = ''

@@ -1,7 +1,7 @@
-import tkinter as tk
-from tkinter import messagebox, Radiobutton, IntVar, filedialog
-from data import TABLE_NAME, BASE_KEY, USER_KEY, CLASS, PATH
+from tkinter import messagebox, filedialog
 from main import runner
+import tkinter as tk
+import os
 
 
 master = tk.Tk()
@@ -27,14 +27,12 @@ def get_values():
         runner(TABLE_NAME, BASE_KEY, USER_KEY, CLASS, PATH, master)
         
     else:
-        messagebox.showerror('ERROR', 'Put in the right input')
-                
+        messagebox.showerror('ERROR', 'Put in the right input')        
     
 def get_path():
     global pathname, filename
     filename = filedialog.askdirectory()
     pathname.config(text=filename)
-    
 
 page_name = tk.Label(master,text="Airtable Auto",width=32,height=1,font=("bold",25),bg="sky blue")
 page_name.place(x=12,y=15)
@@ -43,6 +41,7 @@ table_name = tk.Label(master,text="Table Name",font=("bold",13),width=10,fg="sno
 table_name.place(x=130,y=150)
 
 table_name_val = tk.Entry(master,width=25,font=("bold",13))
+table_name_val.insert(0, 'Table 1')
 table_name_val.place(x=300,y=150)
 
 base_key = tk.Label(master,text="Base Key",font=("bold",13),width=10,fg="snow",bg="grey9")
@@ -64,9 +63,10 @@ eleven = tk.Radiobutton(master, text="XI", variable=std, value=1)
 eleven.place(x=370,y=400)
 
 pathname = tk.Label(master,font=('bold', 10), width=40)
+pathname.config(text=os.path.abspath(os.curdir))
 pathname.place(x=100, y=442)
 
-browsebutton = tk.Button(master, text='Select Path',width=10, command=get_path)
+browsebutton = tk.Button(master, text='Change Path',width=10, command=get_path)
 browsebutton.place(x=440,y=440)
 
 submit = tk.Button(master,text="Download & Convert",bg="azure",width=50,font=("Arial",10),command=get_values)
