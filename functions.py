@@ -8,13 +8,13 @@ def get_airtable_records(base_key, table_name, api_key):
     airtable = Airtable(
         base_key, table_name, api_key
     )
-    return airtable.get_all(sort = 'Division')
+    return airtable.get_all(sort = 'Division', maxRecords=10)
 
 def create_empty_folders(divisions, path):
     os.chdir(path)
     print('PATH changed')
     
-    FOLDER_NAME = path + '/Submissions'
+    FOLDER_NAME = 'Submissions'
     if not FOLDER_NAME in os.listdir():
         os.mkdir(FOLDER_NAME)
         print('Created base folder.')
@@ -39,10 +39,9 @@ def create_pdf(test):
             document.add_heading(str(i)).bold = True
             document.add_paragraph(test['fields'][i])
         document.add_paragraph(test['createdTime'])
-        if test['fields']['Division'] in os.listdir():
-            document.save(file_name)
-            convert(file_name)
-            os.remove(file_name)
+        document.save(file_name)
+        convert(file_name)
+        os.remove(file_name)
         return True
 
     except Exception as e:

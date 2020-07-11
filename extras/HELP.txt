@@ -4,7 +4,7 @@
     python -m pip install -r requirements.txt
     
 3. Run the following command in the terminal/cmd
-    python gui.py
+    python main.py
 
 4. Put correct details in the gui window.
 
