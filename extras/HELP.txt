@@ -5,4 +5,4 @@
 
 3. Put correct details in the gui window.
 
-4. python gui.py
+4. Run python gui.py in terminal
