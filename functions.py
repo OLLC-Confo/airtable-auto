@@ -1,21 +1,25 @@
-from data import TABLE_NAME, USER_KEY
+from data import TABLE_NAME, PATH
 from airtable import Airtable
 from docx2pdf import convert
 from docx import Document
 import os
+# import tkinter as tk
 
 
 FOLDER_NAME = TABLE_NAME + ' Submissions'
 
 
-def get_airtable_records(base_key, table_name):
+def get_airtable_records(base_key, table_name, api_key):
     airtable = Airtable(
-        base_key, table_name, USER_KEY
+        base_key, table_name, api_key
     )
     return airtable.get_all(sort = 'Division')
 
 
-def create_empty_folders(divisions):
+def create_empty_folders(divisions, path):
+    # print(path + "wtwf")
+    os.chdir(path)
+    print('PATH changed')
     if not FOLDER_NAME in os.listdir():
         os.mkdir(FOLDER_NAME)
         print('Created base folder.')

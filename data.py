@@ -1,4 +1,5 @@
-CLASS = 'X'
-TABLE_NAME = 'Table 1'
-BASE_KEY = 'appMbMp11brSMPcSa'
+CLASS = ''
+TABLE_NAME = ''
+BASE_KEY = ''
 USER_KEY = ''
+PATH = ''
