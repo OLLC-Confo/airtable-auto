@@ -1,6 +1,8 @@
-1. INSTALL NECESSARY MODULES
+1. INSTALL Python 3.8 or higher 
+
+2. INSTALL NECESSARY MODULES
     python -m pip install -r requirements.txt
 
-2. In the 'data.py' file, edit required details
+3. Put correct details in the gui window.
 
-3. python main.py
+4. python gui.py
