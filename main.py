@@ -1,4 +1,4 @@
-from functions import get_airtable_records, create_empty_folders, create_pdf
+from functions import  LectureSubmission
 from tkinter import messagebox, filedialog
 from tkinter.ttk import Progressbar
 import tkinter as tk
@@ -20,24 +20,19 @@ division_map = {
 def runner(TABLE_NAME, BASE_KEY, USER_KEY, CLASS, PATH, master):
     global completed, progress, progress_text
     try:
-        submissions = get_airtable_records(BASE_KEY, TABLE_NAME, USER_KEY)
-        print('Reached here')
-        create_empty_folders(division_map[CLASS], PATH)
-        print('Number of files:' , len(submissions))
-        
+        L = LectureSubmission(BASE_KEY, USER_KEY, TABLE_NAME, PATH, division_map[CLASS])
+        L.create_empty_folders()
+        L.create_empty_folders()
+        print('Number of files:' , L.count)
         print('Converting data...')
 
-        fault_count = 0
-        for test in submissions:  
-            if not create_pdf(test):
-                fault_count += 1
-            else:
+        for step in L.create_pdf():
+            if step == True:
                 completed += 1
-                progress['value'] = completed / len(submissions) * 100
-                progress_text.config(text=str(completed) + "/" + str(len(submissions)))
+                progress['value'] = completed / L.count * 100
+                progress_text.config(text=str(completed) + "/" + str(L.count))
                 progress.update()
                 progress_text.update()
-        print("Fault count:", fault_count)
 
     except Exception as e:
         print(e)
@@ -73,7 +68,6 @@ table_name = tk.Label(master,text="Table Name",font=("bold",13),width=10,fg="sno
 table_name.place(x=130,y=150)
 
 table_name_val = tk.Entry(master,width=25,font=("bold",13))
-table_name_val.insert(0, 'Table 1')
 table_name_val.place(x=300,y=150)
 
 base_key = tk.Label(master,text="Base Key",font=("bold",13),width=10,fg="snow",bg="grey9")
@@ -82,7 +76,7 @@ base_key.place(x=129,y=240)
 base_key_val = tk.Entry(master,width=25,font=("bold",13))
 base_key_val.place(x=300,y=240)
 
-my_key = tk.Label(master, text='API key',font=('bold', 13), width=10,fg='snow',bg='grey9')
+my_key = tk.Label(master, text='Your key',font=('bold', 13), width=10,fg='snow',bg='grey9')
 my_key.place(x=130,y=340)
 
 my_key_val = tk.Entry(master, width=25, font=('bold',13))
