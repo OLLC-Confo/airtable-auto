@@ -9,7 +9,7 @@ class LectureSubmission:
         self.table_name = table_name
         self.airtable = Airtable(
             base_key, table_name, api_key
-        ).get_all(sort = 'Division', maxRecords=10)
+        ).get_all(sort = 'Division', maxRecords = 10) #maxRecords = 10
         self.count = len(self.airtable)
         self.path = path
         self.divisions = divisions
@@ -19,7 +19,7 @@ class LectureSubmission:
         os.chdir(self.path)
         print('PATH changed')
         
-        FOLDER_NAME = 'Submissions'
+        FOLDER_NAME = self.table_name
         if not FOLDER_NAME in os.listdir():
             os.mkdir(FOLDER_NAME)
             print('Created base folder.')
