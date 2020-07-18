@@ -61,7 +61,7 @@ def get_path():
     filename = filedialog.askdirectory()
     pathname.config(text=filename)
 
-page_name = tk.Label(master,text="Airtable Auto",width=32,height=1,font=("bold",25),bg="sky blue")
+page_name = tk.Label(master,text="Airtable Auto E-mailer",width=32,height=1,font=("bold",25),bg="sky blue")
 page_name.place(x=12,y=15)
 
 table_name = tk.Label(master,text="Table Name",font=("bold",13),width=10,fg="snow",bg="grey9")
