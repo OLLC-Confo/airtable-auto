@@ -121,7 +121,7 @@ def postman(submissions_path, std, subject, body):
     df = get_df(std) # gets x or xi email file
     fail_mail = open('fail_mail.txt', 'w')
     service = authenticate() # creates authencation object
-    sender_email = 'orlemconfo@gmail.com'
+    sender_email = ''
     i = 0
     for folder in os.listdir(submissions_path):
         print('Mailing ' + folder + '..')
@@ -147,9 +147,8 @@ def postman(submissions_path, std, subject, body):
     fail_mail.close()          
         
     
-submissions_path = 'C:/Users/nassqra/Desktop/Submissions'
-std = 'x' # x or xi
-sender = 'orlemconfo@gmail.com'
-subject = 'L5 Parables of Jesus Worksheet'
-body = 'Thank you for submitting your worksheet. Attached is a copy of your response.'   
+submissions_path = ''
+std = '' # x or xi
+subject = ''
+body = '.'   
 postman(submissions_path, std, subject, body)
