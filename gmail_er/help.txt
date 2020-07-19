@@ -1,0 +1,7 @@
+1. Must contain credentials.json
+
+2. Must contain x_email.xlsx & xi_email.xlsx
+
+3. token.pickle file will be created,
+   do not delete to avoid repeated authentication.
+
