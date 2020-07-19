@@ -1,5 +1,5 @@
-from functions import  LectureSubmission
 from tkinter import messagebox, filedialog
+from functions import LectureSubmission
 from tkinter.ttk import Progressbar
 import tkinter as tk
 import os
@@ -12,16 +12,10 @@ std = tk.IntVar()
 completed = 0
 filename = os.path.abspath(os.curdir)
 
-division_map = {
-    'X': ['A','B','C','D','E','F','G'],
-    'XI': ['A','B','C','D','E','F']
-}
-
 def runner(TABLE_NAME, BASE_KEY, USER_KEY, CLASS, PATH, master):
     global completed, progress, progress_text
     try:
-        L = LectureSubmission(BASE_KEY, USER_KEY, TABLE_NAME, PATH, division_map[CLASS])
-        L.create_empty_folders()
+        L = LectureSubmission(BASE_KEY, USER_KEY, TABLE_NAME, PATH, CLASS)
         L.create_empty_folders()
         print('Number of files:' , L.count)
         print('Converting data...')
