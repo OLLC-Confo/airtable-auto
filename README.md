@@ -12,7 +12,7 @@
 ###	C) gmail_er
 		1. Emails a copy of the submitted worksheet to the students for future reference (in pdf)
 
-<a href="https://github.com/TheDudeThatCode/TheDudeThatCode/blob/master/Assets/headbang.gif"></a>
+<img src="https://github.com/TheDudeThatCode/TheDudeThatCode/blob/master/Assets/headbang.gif" size=190px>
 
 Note: Use the ./HELP/help.txt for navigation.
 
