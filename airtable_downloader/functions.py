@@ -3,17 +3,23 @@ from docx2pdf import convert
 from docx import Document
 import os
 
+
+division_map = {
+    'X': ['A','B','C','D','E','F','G'],
+    'XI': ['A','B','C','D','E','F']
+}
+
 class LectureSubmission:
     
-    def __init__(self, base_key, api_key, table_name, path, divisions):
+    def __init__(self, base_key, api_key, table_name, path, CLASS):
         self.table_name = table_name
         self.airtable = Airtable(
             base_key, table_name, api_key
-        ).get_all(sort = 'Division', maxRecords = 10) #maxRecords = 10
+        ).get_all(sort = 'Division') # maxRecords=?
         self.count = len(self.airtable)
         self.path = path
-        self.divisions = divisions
-
+        self.CLASS = CLASS
+        self.divisions = division_map[CLASS]
 
     def create_empty_folders(self):
         os.chdir(self.path)
@@ -41,11 +47,11 @@ class LectureSubmission:
         for test in self.airtable:
             try:
                 document = Document()
+                document.sections[0].footer.paragraphs[0].text = f"\t\t{self.CLASS} {self.table_name} {test['fields']['Name']} {test['createdTime']}"
                 file_name = test['fields']['Division'] + '/' + test['fields']['Name'] + '.docx'
                 for i in test['fields']:
                     document.add_heading(str(i)).bold = True
                     document.add_paragraph(test['fields'][i])
-                document.add_paragraph(test['createdTime'])
                 document.save(file_name)
                 convert(file_name)
                 os.remove(file_name)

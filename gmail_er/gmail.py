@@ -120,7 +120,7 @@ def postman(submissions_path, std, subject, body):
     df = get_df(std) # gets x or xi email file
     fail_mail = open('fail_mail.txt', 'w')
     service = authenticate() # creates authencation object
-    sender_email = 'orlemconfo@gmail.com'
+    sender_email = ''
     i = 0
     for folder in os.listdir(submissions_path):
         print('Mailing ' + folder + '..')
@@ -152,3 +152,5 @@ sender = ''
 subject = ''
 body = ''   
 postman(submissions_path, std, subject, body)
+
+
