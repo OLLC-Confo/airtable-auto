@@ -44,7 +44,7 @@ def upload_all(lecture_name, submissions_folder, CLASS):
 #upload_all(lecture_name, submissions_folder, CLASS)
 
 '''
-lecture_name = "4. Jesus' Baptism, Ministry, Manifesto" #Final folder name in GDrive
-CLASS = "TestClass"                                     #X or XI
-submissions_folder = "C:/Users/Keane/Desktop/L4"        #Path to downloaded submissions
+lecture_name = "" #Final folder name in GDrive
+CLASS = ""                                     #X or XI
+submissions_folder = ""        #Path to downloaded submissions
 '''
