@@ -1,9 +1,5 @@
 from tkinter import messagebox, filedialog
-<<<<<<< HEAD
 from functions import  LectureSubmission
-=======
-from functions import LectureSubmission
->>>>>>> 9b4d61201f867caf5d5a94562df7a18b34b5c6e3
 from tkinter.ttk import Progressbar
 import tkinter as tk
 import os
