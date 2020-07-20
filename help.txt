@@ -3,8 +3,8 @@
 2. INSTALL NECESSARY MODULES ( cd into ./HELP/ )
     python -m pip install -r requirements.txt
     
-3. Run the following command in the terminal/cmd (airtable_downloader)
-    python main.py
+3. cd into airtable_downloader
+	- python main.py
 
 4. cd into gdrive_uploader
 	- read the help.txt

@@ -1,8 +1,9 @@
 from tkinter import messagebox, filedialog
-from functions import  LectureSubmission
+from functions import LectureSubmission
 from tkinter.ttk import Progressbar
 import tkinter as tk
 import os
+
 
 master = tk.Tk()
 master.title('Airtable Auto')
