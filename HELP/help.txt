@@ -1,0 +1,18 @@
+1. INSTALL Python 3.8 or higher 
+
+2. INSTALL NECESSARY MODULES ( cd into ./HELP/ )
+    python -m pip install -r requirements.txt
+    
+3. Run the following command in the terminal/cmd (airtable_downloader)
+    python main.py
+
+4. cd into gdrive_uploader
+	- read the help.txt
+	- python gdrive_gui.py
+
+5. cd into gmail_er
+	- read help.txt
+	- Edit the arguments in the end of gmail.py before running
+	- python gmail.py
+
+

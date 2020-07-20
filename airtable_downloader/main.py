@@ -1,5 +1,5 @@
-from functions import  LectureSubmission
 from tkinter import messagebox, filedialog
+from functions import  LectureSubmission
 from tkinter.ttk import Progressbar
 import tkinter as tk
 import os

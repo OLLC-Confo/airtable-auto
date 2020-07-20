@@ -1,21 +1,19 @@
-from __future__ import print_function
-import pickle
-
-from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-import base64
 from email.mime.multipart import MIMEMultipart
+from googleapiclient.discovery import build
+from email.message import EmailMessage
+from __future__ import print_function
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
-import mimetypes
 import email.encoders as encoder
-from email.message import EmailMessage
 from apiclient import errors
-
 import pandas as pd
-import os
+import mimetypes
 import os.path
+import base64
+import pickle
+import os
 import re
 
 
@@ -78,9 +76,10 @@ def CreateMessageWithAttachment(sender, to, subject, message_text, file_dir, fil
 def SendMessage(service, user_id, message):
   try:
     message = (service.users().messages().send(userId=user_id, body=message).execute())
-    print('Message Id: %s' % message['id'])
+    # print('Message Id: %s' % message['id'])
     return message
   except Exception as error:
+    return None
     print('An error occurred: %s' % error)
 
 
@@ -137,7 +136,7 @@ def postman(submissions_path, std, subject, body):
                 try:
                     # passing file name with extension
                     msg = CreateMessageWithAttachment(sender_email, to_email, subject, body, file_path, file)
-                    SendMessage(service, sender_email, msg)
+                    SendMessage(service, sender_email, msg, fail_mail)
                     i += 1
                 except Exception as e:
                     print(e)
@@ -147,9 +146,9 @@ def postman(submissions_path, std, subject, body):
     fail_mail.close()          
         
     
-submissions_path = 'C:/Users/nassqra/Desktop/Submissions'
-std = 'x' # x or xi
-sender = 'orlemconfo@gmail.com'
-subject = 'L5 Parables of Jesus Worksheet'
-body = 'Thank you for submitting your worksheet. Attached is a copy of your response.'   
+submissions_path = ''
+std = '' # x or xi
+sender = ''
+subject = ''
+body = ''   
 postman(submissions_path, std, subject, body)
