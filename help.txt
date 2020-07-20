@@ -1,6 +1,6 @@
 1. INSTALL Python 3.8 or higher 
 
-2. INSTALL NECESSARY MODULES ( cd into ./HELP/ )
+2. INSTALL NECESSARY MODULES
     python -m pip install -r requirements.txt
     
 3. cd into airtable_downloader
