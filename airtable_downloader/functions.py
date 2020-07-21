@@ -15,7 +15,7 @@ class LectureSubmission:
         self.table_name = table_name
         self.airtable = Airtable(
             base_key, table_name, api_key
-        ).get_all(sort = 'Division') # maxRecords=?
+        ).get_all(sort = 'Division') # ,maxRecords = ?
         self.count = len(self.airtable)
         self.path = path
         self.CLASS = CLASS

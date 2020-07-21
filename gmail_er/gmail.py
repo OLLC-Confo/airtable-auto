@@ -1,9 +1,9 @@
+from __future__ import print_function
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from email.mime.multipart import MIMEMultipart
 from googleapiclient.discovery import build
 from email.message import EmailMessage
-from __future__ import print_function
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 import email.encoders as encoder
@@ -44,33 +44,31 @@ def authenticate():
 
 
 def CreateMessageWithAttachment(sender, to, subject, message_text, file_dir, filename):
-  message = MIMEMultipart()
-  message['to'] = to
-  message['from'] = sender
-  message['subject'] = subject
+    message = MIMEMultipart()
+    message['to'] = to
+    message['from'] = sender
+    message['subject'] = subject
 
-  msg = MIMEText(message_text)
-  message.attach(msg)
+    msg = MIMEText(message_text)
+    message.attach(msg)
 
-  path = os.path.join(file_dir, filename)
-  content_type, encoding = mimetypes.guess_type(path)
+    path = os.path.join(file_dir, filename)
+    content_type, encoding = mimetypes.guess_type(path)
 
-  if content_type is None or encoding is not None:
-    content_type = 'application/octet-stream'
+    if content_type is None or encoding is not None:
+        content_type = 'application/octet-stream'
+        
+    x = open(path, 'rb').read()
+    msg = MIMEBase('application', 'pdf')
+    msg.set_payload(x)
+
+    encoder.encode_base64(msg)
+    msg.add_header('Content-Disposition', 'attachment', filename=filename)
+    message.attach(msg)
+
+    raw = base64.urlsafe_b64encode(message.as_string().encode()).decode()
     
-  fp = open(path, 'rb')
-  x = fp.read()
-  fp.close()
-  msg = MIMEBase('application', 'pdf')
-  msg.set_payload(x)
-
-  encoder.encode_base64(msg)
-  msg.add_header('Content-Disposition', 'attachment', filename=filename)
-  message.attach(msg)
-
-  raw = base64.urlsafe_b64encode(message.as_string().encode()).decode()
-  
-  return {'raw': raw}
+    return {'raw': raw}
 
 
 def SendMessage(service, user_id, message):
@@ -79,8 +77,8 @@ def SendMessage(service, user_id, message):
     # print('Message Id: %s' % message['id'])
     return message
   except Exception as error:
-    return None
     print('An error occurred: %s' % error)
+    return None
 
 
 def get_df(std):
@@ -116,41 +114,44 @@ def get_email(df, file_name):
         return None
 
 
-def postman(submissions_path, std, subject, body):
+def postman(submissions_path, std, sender_email, subject, body):
     df = get_df(std) # gets x or xi email file
-    fail_mail = open('fail_mail.txt', 'w')
     service = authenticate() # creates authencation object
-    sender_email = ''
+
+    confirm = input("Do you want to send all emails? y/n:")
+    if confirm not in ["y", "Y"]:
+        return
+    
+    fail_mail = open('fail_mail.txt', 'w')
     i = 0
     for folder in os.listdir(submissions_path):
         print('Mailing ' + folder + '..')
         file_path = submissions_path + '/' + folder
 
         for file in os.listdir(file_path):
-            file_name_prefix = get_file_name_prefix(file_path + '/' + file).upper() # removes extension
+            file_name_prefix = get_file_name_prefix(file).upper() # removes extension
             to_email = get_email(df, file_name_prefix.split())
-            # print(to_email)
             if to_email is None:
                 fail_mail.write(file_name_prefix + '\n')
             else:
                 try:
                     # passing file name with extension
                     msg = CreateMessageWithAttachment(sender_email, to_email, subject, body, file_path, file)
-                    SendMessage(service, sender_email, msg, fail_mail)
+                    SendMessage(service, sender_email, msg)
                     i += 1
                 except Exception as e:
                     print(e)
                     fail_mail.write(file_name_prefix + '\n') 
+            print(i)
         print('Whoppie\n')
     print(i, ' mails sent successfully!')
     fail_mail.close()          
         
     
-submissions_path = ''
-std = '' # x or xi
+submissions_path = ''   #path to folder
+std = ''                # x or xi
 sender = ''
+sender_email = ''
 subject = ''
 body = ''   
-postman(submissions_path, std, subject, body)
-
-
+postman(submissions_path, std, sender_email, subject, body)

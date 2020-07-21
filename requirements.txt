@@ -9,3 +9,4 @@ docx==0.2.4
 docx2pdf==0.1.7
 google_api_python_client==1.10.0
 protobuf==3.12.2
+xlrd==1.2.0
