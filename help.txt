@@ -16,3 +16,4 @@
 	- python gmail.py
 
 
+Note: If any changes, go through the whole cycle from the start

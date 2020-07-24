@@ -50,7 +50,7 @@ class LectureSubmission:
                 pdf = FPDF()
                 pdf.add_font('noto', '', BASE_PATH + '/fonts/NotoSerif-Regular.ttf', uni=True)
                 pdf.add_font('notoB', '', BASE_PATH + '/fonts/NotoSerif-Bold.ttf', uni=True)
-                file_name = test['fields']['Division'] + '/' + test['fields']['Name'] + '.pdf'
+                file_name = test['fields']['Division'] + '/' + test['fields']['Name'].upper().strip() + '.pdf'
 
                 pdf.add_page()
                 for i in test['fields']:
