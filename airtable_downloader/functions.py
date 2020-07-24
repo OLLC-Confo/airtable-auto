@@ -1,7 +1,8 @@
 from airtable import Airtable
-from docx2pdf import convert
-from docx import Document
+from fpdf import FPDF
 import os
+
+BASE_PATH = os.path.abspath(os.curdir)
 
 
 division_map = {
@@ -46,16 +47,26 @@ class LectureSubmission:
         fault_count = 0
         for test in self.airtable:
             try:
-                document = Document()
-                document.sections[0].footer.paragraphs[0].text = f"\t\t{self.CLASS} {self.table_name} {test['fields']['Name']} {test['createdTime']}"
-                file_name = test['fields']['Division'] + '/' + test['fields']['Name'] + '.docx'
+                pdf = FPDF()
+                pdf.add_font('noto', '', BASE_PATH + '/fonts/NotoSerif-Regular.ttf', uni=True)
+                pdf.add_font('notoB', '', BASE_PATH + '/fonts/NotoSerif-Bold.ttf', uni=True)
+                file_name = test['fields']['Division'] + '/' + test['fields']['Name'] + '.pdf'
+
+                pdf.add_page()
                 for i in test['fields']:
-                    document.add_heading(str(i)).bold = True
-                    document.add_paragraph(test['fields'][i])
-                document.save(file_name)
-                convert(file_name)
-                os.remove(file_name)
+
+                    pdf.set_font("notoB", "", 14)
+                    pdf.set_text_color(0, 45, 90)
+                    pdf.write(7, "\n\n" + str(i))
+                    
+                    pdf.set_font("noto", "", 14)
+                    pdf.set_text_color(0, 0, 0)
+                    pdf.write(7, "\n" + test['fields'][i])
+                
+                pdf.write(7, "\n\n" + f"{self.CLASS} {self.table_name} {test['fields']['Name']} {test['createdTime']}")
+                pdf.output(file_name, 'F')
                 yield True
+
             except Exception as e:
                 print(e)
                 fault_count += 1
