@@ -51,7 +51,7 @@ class LectureSubmission:
                 pdf.add_font('noto', '', BASE_PATH + '/fonts/NotoSerif-Regular.ttf', uni=True)
                 pdf.add_font('notoB', '', BASE_PATH + '/fonts/NotoSerif-Bold.ttf', uni=True)
                 file_name = test['fields']['Division'] + '/' + test['fields']['Name'].upper().strip() + '.pdf'
-
+                print(file_name)
                 pdf.add_page()
                 for i in test['fields']:
 
@@ -61,7 +61,7 @@ class LectureSubmission:
                     
                     pdf.set_font("noto", "", 14)
                     pdf.set_text_color(0, 0, 0)
-                    pdf.write(7, "\n" + test['fields'][i])
+                    pdf.write(7, "\n" + str(test['fields'][i]))
                 
                 pdf.write(7, "\n\n" + f"{self.CLASS} {self.table_name} {test['fields']['Name']} {test['createdTime']}")
                 pdf.output(file_name, 'F')

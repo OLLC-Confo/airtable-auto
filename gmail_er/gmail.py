@@ -32,8 +32,7 @@ def authenticate():
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'gmail_er/credentials.json', SCOPES)
+            flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
         with open('token.pickle', 'wb') as token:
@@ -83,16 +82,16 @@ def SendMessage(service, user_id, message):
 
 def get_df(std):
     if std in ['x','X']:
-        df = pd.read_csv('gmail_er/x_email.csv')
+        df = pd.read_csv('x_email.csv')
         return df
     elif std in ['xi','XI']:
-        df = pd.read_csv('gmail_er/xi_email.csv')
+        df = pd.read_csv('xi_email.csv')
         return df
     else:
         return None
 
 def postman(submissions_path, std, sender_email, subject, body):
-    class_data = get_df(std) # gets x or xi email file
+    main_class_data = get_df(std) # gets x or xi email file
     service = authenticate() # creates authencation object
 
     confirm = input("Do you want to send all emails? y/n:")
@@ -102,23 +101,30 @@ def postman(submissions_path, std, sender_email, subject, body):
     i = 0
     check_these_names = open("check_these_emails.txt", "w")
     for division in os.listdir(submissions_path):
+        class_data = main_class_data.query(f'DIVISION == "{division}"')
+        
         print('Mailing ' + division + '..')
 
         for file in os.listdir(submissions_path + '/' + division):
             filename = file[:-4].split(sep=" ")
-            if len(filename) == 2: #name and surname
-                x = class_data.loc[(class_data.NAME == filename[0].strip()) & (class_data.SURNAME == filename[1].strip())]['EMAIL']
+            for k in range(len(filename)):
+                filename[k].replace("'", "").rstrip().strip()
+            try:
+                #if len(filename) == 2: #name and surname
+                x = class_data.query(f'NAME == "{filename[0]}" and SURNAME == "{filename[-1]}"')['EMAIL']
+                #print(x)
                 if not x.empty:
-                    to_email = x.values[0]
+                    to_email = x.values[0] 
                     file_path = submissions_path + "/" + division
                     msg = CreateMessageWithAttachment(sender_email, to_email, subject, body, file_path, file)
                     SendMessage(service, sender_email, msg)
                     print(str(division),"\t",str(file),"\t Whoppie",'\t',str(to_email))
                     i += 1
                 else:
-                    check_these_names.write(str(division) + "\t" + str(file) + "\n")
-            else:
-                check_these_names.write(str(division) + "\t" + str(file) + "\n")
+                    check_these_names.write(str(division) + "\t" + str(file) + " \tNot Exist" + "\n")
+            except Exception as e:
+                print(e)
+                check_these_names.write(str(division) + "\t" + str(file) + " \tError" + "\n")
     print(i, ' mails sent successfully!')
     check_these_names.close()
 
@@ -128,12 +134,10 @@ std = ''                # x or xi
 sender = ''
 sender_email = ''
 subject = ''
-body = ''   
+body = ""   # or can create a custom body in the loop with name i.e. filename[0]
 
 
 class_data = get_df(std)
-#name_checker(submissions_path, class_data)
-
 postman(submissions_path, std, sender_email, subject, body)
 
 '''
