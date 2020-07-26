@@ -106,25 +106,26 @@ def postman(submissions_path, std, sender_email, subject, body):
         print('Mailing ' + division + '..')
 
         for file in os.listdir(submissions_path + '/' + division):
-            filename = file[:-4].split(sep=" ")
+            filename = file[:-4].split()
             for k in range(len(filename)):
-                filename[k].replace("'", "").rstrip().strip()
-            try:
-                #if len(filename) == 2: #name and surname
-                x = class_data.query(f'NAME == "{filename[0]}" and SURNAME == "{filename[-1]}"')['EMAIL']
-                #print(x)
-                if not x.empty:
-                    to_email = x.values[0] 
+                filename[k] = filename[k].replace("'", "").rstrip().strip()
+            #if len(filename) == 2: #name and surname
+            x = class_data.query(f'NAME == "{filename[0]}" and SURNAME == "{filename[-1]}"')['EMAIL']
+            #print(x)
+            if len(x.index) > 0:
+                try:
+                    to_email = x.values[0]
                     file_path = submissions_path + "/" + division
                     msg = CreateMessageWithAttachment(sender_email, to_email, subject, body, file_path, file)
                     SendMessage(service, sender_email, msg)
                     print(str(division),"\t",str(file),"\t Whoppie",'\t',str(to_email))
                     i += 1
-                else:
-                    check_these_names.write(str(division) + "\t" + str(file) + " \tNot Exist" + "\n")
-            except Exception as e:
-                print(e)
-                check_these_names.write(str(division) + "\t" + str(file) + " \tError" + "\n")
+                except Exception as e:
+                    print(e)
+                    check_these_names.write(str(division) + "\t" + str(file) + "\tStudent found, Exception" + "\n")
+            else:
+                print(x)
+                check_these_names.write(str(division) + "\t" + str(file) + " \tNot found \t" + str(filename) + "\n")
     print(i, ' mails sent successfully!')
     check_these_names.close()
 
