@@ -31,6 +31,7 @@ class LectureSubmission:
                     os.remove(division + '/' + file)
                     delete_count += 1
         print('Deleted previous files:', delete_count, '\n')
+        os.chdir(BASE_PATH)
 
 def create_pdf(df, df_cols, BASE_PATH):
     filename = ''
@@ -42,7 +43,6 @@ def create_pdf(df, df_cols, BASE_PATH):
         for i in range(len(df_cols)):
             question = df_cols[i]
             answer = row[i+1]
-            print('\n')
             filename = row.Name.upper().strip().rstrip() + '.pdf'
             try:
                 pdf.set_font("notoB", "", 14)
@@ -54,10 +54,9 @@ def create_pdf(df, df_cols, BASE_PATH):
                 pdf.write(7, "\n" + str(answer))
             except Exception as e:
                 print(e)
-        os.chdir(BASE_PATH + '/' + row.Division)
         print(os.getcwd())
-        yield pdf.output(filename, 'F')
-        os.chdir(BASE_PATH)
+        res = pdf.output(BASE_PATH + '/' + row.Division + "/" + filename, 'F')
+        print("Done", res)
         
 
 
@@ -77,6 +76,7 @@ TABLE_NAME = 'Baptism'
 CLASS = 'XI'
 
 BASE_PATH = os.path.abspath(os.curdir)
+print(BASE_PATH)
 l = LectureSubmission(TABLE_NAME, BASE_PATH, CLASS)
 l.create_empty_folders()
 create_pdf(df, df_cols, BASE_PATH + '/' + TABLE_NAME)
