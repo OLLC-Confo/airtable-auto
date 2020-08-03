@@ -61,7 +61,7 @@ def create_pdf(df, df_cols, BASE_PATH):
 
 
 ## DATA PROCESSING
-df = pd.read_csv('tabs.csv')
+df = pd.read_csv('tabss.csv')
 df = df.sort_values(by=['Division', 'Name'])
 df_cols = [x for x in df.columns]
 
@@ -71,9 +71,9 @@ division_map = {
     'XI': ['A','B','C','D','E','F']
 }
 
-TABLE_NAME = 'Baptism'
+TABLE_NAME = 'Parables of The Lost'
 
-CLASS = 'XI'
+CLASS = 'X'
 
 BASE_PATH = os.path.abspath(os.curdir)
 print(BASE_PATH)

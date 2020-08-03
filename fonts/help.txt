@@ -1,1 +1,0 @@
-In case of any updates in fonts, delete all generated font files except the .ttf files
