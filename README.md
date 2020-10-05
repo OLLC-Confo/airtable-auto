@@ -10,7 +10,7 @@
 - Uploads the pdf files into our Google drive, in the respective class folders for each teacher
 
 ###	C) gmail_er
-- Emails a copy of the submitted worksheet to the students for future reference (in pdf)
+- Emails practically anything. Set the payload as required
 
 <img src="https://github.com/TheDudeThatCode/TheDudeThatCode/blob/master/Assets/headbang.gif" size=190px>
 
