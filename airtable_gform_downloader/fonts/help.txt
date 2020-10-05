@@ -1,1 +1,6 @@
 In case of any updates in fonts, delete all generated font files except the .ttf files
+
+The font's in this directory are used when making worksheet pdfs from
+Airtable's REST api
+
+For gforms, the fonts are available outside.

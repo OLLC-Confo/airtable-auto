@@ -37,9 +37,14 @@ def create_pdf(df, df_cols, BASE_PATH):
     filename = ''
     for row in df.itertuples():
         pdf = FPDF()
-        pdf.add_font('noto', '', 'NotoSerif-Regular.ttf', uni=True)
-        pdf.add_font('notoB', '', 'NotoSerif-Bold.ttf', uni=True)
+        pdf.add_font('noto', '', './fonts/NotoSerif-Regular.ttf', uni=True)
+        pdf.add_font('notoB', '', './fonts/NotoSerif-Bold.ttf', uni=True)
         pdf.add_page()
+        
+        pdf.set_font("notoB", "", 14)
+        pdf.set_text_color(0, 45, 90)
+        pdf.write(7, "\n\n\t\t\t\t" + str(TABLE_NAME))
+        
         for i in range(len(df_cols)):
             question = df_cols[i]
             answer = row[i+1]
@@ -54,14 +59,14 @@ def create_pdf(df, df_cols, BASE_PATH):
                 pdf.write(7, "\n" + str(answer))
             except Exception as e:
                 print(e)
-        print(os.getcwd())
+
         res = pdf.output(BASE_PATH + '/' + row.Division + "/" + filename, 'F')
-        print("Done", res)
+    print("Done", res)
         
 
 
 ## DATA PROCESSING
-df = pd.read_csv('tabss.csv')
+df = pd.read_csv('wow.csv') # Change the name here to the downloaded csv file
 df = df.sort_values(by=['Division', 'Name'])
 df_cols = [x for x in df.columns]
 
@@ -71,19 +76,14 @@ division_map = {
     'XI': ['A','B','C','D','E','F']
 }
 
-TABLE_NAME = 'Parables of The Lost'
+TABLE_NAME = 'L15 Genesis 3 & 4 (Adam & Eve)'   # This also is the name appended to the top of the worksheet
 
-CLASS = 'X'
+# Name in the above manner only
+
+CLASS = 'X' # change class as required
 
 BASE_PATH = os.path.abspath(os.curdir)
 print(BASE_PATH)
 l = LectureSubmission(TABLE_NAME, BASE_PATH, CLASS)
 l.create_empty_folders()
 create_pdf(df, df_cols, BASE_PATH + '/' + TABLE_NAME)
-
-
-
-
-
-        
-
