@@ -2,8 +2,8 @@
 
 ## The 3 programs automate the following things below 🤖
 
-###	A) airtable_downloader
-- Downloads entries from our airtable database (Confo worksheet submissions)
+###	A) airtable_gform_downloader
+- Downloads entries from our airtable database / gform csv (worksheet submissions)
 - Converts the downloads into pdf files on the local machine.
 	
 ###	B) gdrive_uploader

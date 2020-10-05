@@ -130,12 +130,12 @@ def postman(submissions_path, std, sender_email, subject, body):
     check_these_names.close()
 
     
-submissions_path = 'C:/Users/nassqra/Desktop/MEGA/airtable-auto/Table 1'   #path to folder
-std = 'x'                # x or xi
-sender = 'orlem confo'
-sender_email = 'orlemconfo@gmail.com'
-subject = 'L6 Luke: Parables (contd) Worksheet'
-body = "hi! Attached is a copy of your response for todays submissions."   # or can create a custom body in the loop with name i.e. filename[0]
+submissions_path = ''   #path to folder
+std = ''                # x or xi
+sender = ''
+sender_email = ''
+subject = ''
+body = ""   # or can create a custom body in the loop with name i.e. filename[0]
 
 
 class_data = get_df(std)
@@ -153,9 +153,8 @@ def get_file_name_prefix(file_path):
         return file_name_prefix_match.group("file_name_prefix")
     
 
-'''
-    
-'''def get_email(df, file_name):
+
+def get_email(df, file_name):
     file_name = [x for x in file_name]
     print(file_name)
     email = df.loc[(df['NAME'].str.strip() == file_name[0]) & (df['SURNAME'].str.strip() == file_name[1])]
