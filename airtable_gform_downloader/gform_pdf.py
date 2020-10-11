@@ -1,6 +1,6 @@
+from fpdf import FPDF
 import pandas as pd
 import os
-from fpdf import FPDF
 
 
 class LectureSubmission:
@@ -13,7 +13,7 @@ class LectureSubmission:
 
     def create_empty_folders(self):
         os.chdir(self.path)
-        print('PATH changed')
+        print('PATH changed', os.getcwd())
         
         FOLDER_NAME = self.table_name
         if not FOLDER_NAME in os.listdir():
@@ -41,20 +41,20 @@ def create_pdf(df, df_cols, BASE_PATH):
         pdf.add_font('notoB', '', './fonts/NotoSerif-Bold.ttf', uni=True)
         pdf.add_page()
         
-        pdf.set_font("notoB", "", 14)
+        pdf.set_font("notoB", "", 16)
         pdf.set_text_color(0, 45, 90)
-        pdf.write(7, "\n\n\t\t\t\t" + str(TABLE_NAME))
+        pdf.cell(w = 0, h = 0, txt = str(TABLE_NAME), align = 'C')
         
         for i in range(len(df_cols)):
             question = df_cols[i]
             answer = row[i+1]
             filename = row.Name.upper().strip().rstrip() + '.pdf'
             try:
-                pdf.set_font("notoB", "", 14)
+                pdf.set_font("notoB", "", 12)
                 pdf.set_text_color(0, 45, 90)
-                pdf.write(7, "\n\n" + str(question))
+                pdf.write(7, "\n\n" + u'\u2022 ' + str(question))
                         
-                pdf.set_font("noto", "", 14)
+                pdf.set_font("noto", "", 12)
                 pdf.set_text_color(0, 0, 0)
                 pdf.write(7, "\n" + str(answer))
             except Exception as e:
@@ -66,7 +66,7 @@ def create_pdf(df, df_cols, BASE_PATH):
 
 
 ## DATA PROCESSING
-df = pd.read_csv('wow.csv') # Change the name here to the downloaded csv file
+df = pd.read_csv('16. The 7th Commandment.csv') # Change the name here to the downloaded csv file
 df = df.sort_values(by=['Division', 'Name'])
 df_cols = [x for x in df.columns]
 
@@ -76,11 +76,11 @@ division_map = {
     'XI': ['A','B','C','D','E','F']
 }
 
-TABLE_NAME = 'L15 Genesis 3 & 4 (Adam & Eve)'   # This also is the name appended to the top of the worksheet
+TABLE_NAME = '16. The 7th Commandment'   # This also is the name appended to the top of the worksheet
 
 # Name in the above manner only
 
-CLASS = 'X' # change class as required
+CLASS = 'XI' # change class as required
 
 BASE_PATH = os.path.abspath(os.curdir)
 print(BASE_PATH)
