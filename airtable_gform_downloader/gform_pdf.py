@@ -3,6 +3,18 @@ import pandas as pd
 import os
 
 
+class PDF(FPDF):
+    def __init__(self, table_name):
+        FPDF.__init__(self,orientation='P',unit='mm',format='A4')
+        self.table_name = table_name
+
+    # Page footer
+    def footer(self):
+        self.set_y(-15)
+        self.set_font('Arial', 'I', 8)
+        self.cell(0, 10, self.table_name + " | Page " + str(self.page_no()), 0, 0, 'C')
+
+
 class LectureSubmission:
     
     def __init__(self, table_name, path, CLASS):
@@ -36,9 +48,9 @@ class LectureSubmission:
 def create_pdf(df, df_cols, BASE_PATH):
     filename = ''
     for row in df.itertuples():
-        pdf = FPDF()
-        pdf.add_font('noto', '', './fonts/NotoSerif-Regular.ttf', uni=True)
-        pdf.add_font('notoB', '', './fonts/NotoSerif-Bold.ttf', uni=True)
+        pdf = PDF(TABLE_NAME)
+        pdf.add_font('noto', '', 'fonts/NotoSerif-Regular.ttf', uni=True)
+        pdf.add_font('notoB', '', 'fonts/NotoSerif-Bold.ttf', uni=True)
         pdf.add_page()
         
         pdf.set_font("notoB", "", 16)
@@ -57,6 +69,7 @@ def create_pdf(df, df_cols, BASE_PATH):
                 pdf.set_font("noto", "", 12)
                 pdf.set_text_color(0, 0, 0)
                 pdf.write(7, "\n" + str(answer))
+                
             except Exception as e:
                 print(e)
 
