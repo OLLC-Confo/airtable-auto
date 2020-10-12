@@ -1,1 +1,7 @@
 */__pycache__/
+
+gdrive_uploader/class_map.csv
+gdrive_uploader/client_secrets.json
+
+*.csv
+*/*
