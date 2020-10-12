@@ -12,6 +12,7 @@ class PDF(FPDF):
     def footer(self):
         self.set_y(-15)
         self.set_font('Arial', 'I', 8)
+        self.set_text_color(100, 200, 200)
         self.cell(0, 10, self.table_name + " | Page " + str(self.page_no()), 0, 0, 'C')
 
 
@@ -53,22 +54,28 @@ def create_pdf(df, df_cols, BASE_PATH):
         pdf.add_font('notoB', '', 'fonts/NotoSerif-Bold.ttf', uni=True)
         pdf.add_page()
         
-        pdf.set_font("notoB", "", 16)
+        pdf.set_font("notoB", "", 18)
         pdf.set_text_color(0, 45, 90)
         pdf.cell(w = 0, h = 0, txt = str(TABLE_NAME), align = 'C')
+        pdf.write(7, "\n\n")
         
         for i in range(len(df_cols)):
             question = df_cols[i]
             answer = row[i+1]
             filename = row.Name.upper().strip().rstrip() + '.pdf'
             try:
-                pdf.set_font("notoB", "", 12)
+                pdf.set_font("notoB", "", 14)
                 pdf.set_text_color(0, 45, 90)
-                pdf.write(7, "\n\n" + u'\u2022 ' + str(question))
+                pdf.write(7, "\n" + u'\u2022 ' + str(question))
                         
                 pdf.set_font("noto", "", 12)
                 pdf.set_text_color(0, 0, 0)
                 pdf.write(7, "\n" + str(answer))
+
+                pdf.set_font("noto", "", 12)
+                pdf.set_text_color(170, 200, 200)
+                pdf.write(7, "\n\n" + "-" * 143 + "\n")
+
                 
             except Exception as e:
                 print(e)
