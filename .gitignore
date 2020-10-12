@@ -5,3 +5,5 @@ gdrive_uploader/client_secrets.json
 
 *.csv
 */*
+*.json
+*.pkl
