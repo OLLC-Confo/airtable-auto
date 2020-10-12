@@ -6,15 +6,14 @@ import os
 
 
 ''' Class Data Retrieval '''
-CLASS_MAP = pd.read_csv("class_map.csv")
+CLASS_MAP = pd.read_csv("class_map.csv") ### gdrive folder ids
 
 ''' Authentication only required for duplicate folder deletion, etc, later to be done'''
-def authenticate():
+'''def authenticate():
     gauth = GoogleAuth()
     gauth.LoadClientConfigFile("./client_secrets.json")
     drive = GoogleDrive(gauth)
-    return drive
-
+    return drive'''
 
 def upload_all(lecture_name, submissions_folder, CLASS):
     global CLASS_MAP
@@ -40,11 +39,9 @@ def upload_all(lecture_name, submissions_folder, CLASS):
     print("Done")
 
 
+submissions_folder = "C:\\Users\\Keane\\Desktop\\Confo\\airtable-auto\\airtable_gform_downloader\\16. The 7th Commandment"     ### Path to downloaded submissions
+CLASS = "XI"                  ### X or XI
+final_folder_name = "Test 16"           ### Final folder name in GDrive
 
-#upload_all(lecture_name, submissions_folder, CLASS)
-
-'''
-lecture_name = "" #Final folder name in GDrive
-CLASS = ""                                     #X or XI
-submissions_folder = ""        #Path to downloaded submissions
-'''
+''' uncomment to upload '''
+#upload_all(final_folder_name, submissions_folder, CLASS)
