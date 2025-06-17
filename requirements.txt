@@ -6,5 +6,5 @@ pygdrive3==0.7.0
 airtable_python_wrapper==0.13.0
 airtable==0.3.1
 google_api_python_client==1.10.0
-protobuf==3.12.2
+protobuf==4.25.8
 xlrd==1.2.0
